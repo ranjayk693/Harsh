@@ -14,35 +14,37 @@ namespace Guide.Controllers
         private readonly DataContext _context;
         public ValuesController(DataContext context)
         {
-            context = _context;
+            _context = context;
         }
 
         [HttpGet("guide")]
         public async Task<ActionResult<List<guide>>> Get()
         {
-            var data=await _context.Guides.ToListAsync();
+            var data = await _context.guides.ToListAsync();
             return Ok(data);
         }
 
         [HttpPost("guide/registration")]
         public async Task<IActionResult> PostAsync([FromBody] guide value)
         {
-            var data = await _context.Guides.AddAsync(value);
+            await _context.guides.AddAsync(value);
+            await _context.SaveChangesAsync();
             return Ok("data is created sucess");
         }
 
-        [HttpGet("registration")]
-        public async Task<ActionResult<List<Registration>>> GetRegistration()
+        [HttpGet("user")]
+        public async Task<ActionResult<List<Registration>>> GetUser()
         {
             var data = await _context.Registrations.ToListAsync();
             return Ok(data);
         }
 
-        [HttpPost("guide/registration")]
-        public async Task<IActionResult> PostAsync([FromBody] Registration value)
+        [HttpPost("registration")]
+        public async Task<IActionResult> Register([FromBody] Registration value)
         {
-            var data = await _context.Registrations.AddAsync(value);
-            return Ok("registration is created sucess");
+            await _context.Registrations.AddAsync(value);
+            await _context.SaveChangesAsync();
+            return Ok("user is registration");
         }
 
 

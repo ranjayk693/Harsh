@@ -9,7 +9,7 @@ namespace Guide.Data
             
         }
 
-        public DbSet<guide> Guides { get; set; } 
+        public DbSet<guide> guides { get; set; }
         public DbSet<Registration> Registrations { get; set; }
 
     }
